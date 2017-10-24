@@ -8,6 +8,7 @@ var firstAndPike = {
   avgCookies: 6.3, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputList: document.createElement('ul'), //output list for the browser
 
   //function
   rdmCustomers: function() {
@@ -35,17 +36,20 @@ var firstAndPike = {
       this.totalGenSales += randomAverage;
 
       // input the projected sales for this hour into the array
-      this.genSales.push(time + ' ' + amPm + ': ' + randomAverage + ' cookies');
+      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
 
       // if this is the last iteration, add the total to the array
       if(i === 20){
-        this.genSales.push('Total: ' + this.totalGenSales + ' cookies');
+        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
       }
 
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
-  }
+  this.outputList.innerHTML = this.genSales.join('');
+  document.body.appendChild(this.outputList);
+
+  } // end for loop
 } // end object
 
 firstAndPike.generateSales();
@@ -55,12 +59,20 @@ console.log('1st and Pike total:',firstAndPike.totalGenSales);
 
 
 
+// var list = document.createElement('ul');
+// list.innerHTML = firstAndPike.genSales.join('';)
+// document.body.appendChild(list);
+
+var seaTacAirportList = document.createElement('ul');
+
+
 var seaTacAirport = {
   minCustomers: 3, //minimum customers per hour
   maxCustomers: 23, //maximum customers per hour
   avgCookies: 1.2, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputList: document.createElement('ul'), //output list for the browser
 
   //function
   rdmCustomers: function() {
@@ -88,16 +100,18 @@ var seaTacAirport = {
       this.totalGenSales += randomAverage;
 
       // input the projected sales for this hour into the array
-      this.genSales.push(time + ' ' + amPm + ': ' + randomAverage + ' cookies');
+      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
 
       // if this is the last iteration, add the total to the array
       if(i === 20){
-        this.genSales.push('Total: ' + this.totalGenSales + ' cookies');
+        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
       }
 
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    this.outputList.innerHTML = this.genSales.join('');
+    document.body.appendChild(this.outputList);
   }
 } // end object
 
@@ -114,6 +128,7 @@ var seattleCenter = {
   avgCookies: 3.7, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputList: document.createElement('ul'), //output list for the browser
 
   //function
   rdmCustomers: function() {
@@ -141,16 +156,18 @@ var seattleCenter = {
       this.totalGenSales += randomAverage;
 
       // input the projected sales for this hour into the array
-      this.genSales.push(time + ' ' + amPm + ': ' + randomAverage + ' cookies');
+      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
 
       // if this is the last iteration, add the total to the array
       if(i === 20){
-        this.genSales.push('Total: ' + this.totalGenSales + ' cookies');
+        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
       }
 
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    this.outputList.innerHTML = this.genSales.join('');
+    document.body.appendChild(this.outputList);
   }
 } // end object
 
@@ -167,6 +184,7 @@ var capitalHill = {
   avgCookies: 2.3, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputList: document.createElement('ul'), //output list for the browser
 
   //function
   rdmCustomers: function() {
@@ -194,16 +212,18 @@ var capitalHill = {
       this.totalGenSales += randomAverage;
 
       // input the projected sales for this hour into the array
-      this.genSales.push(time + ' ' + amPm + ': ' + randomAverage + ' cookies');
+      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
 
       // if this is the last iteration, add the total to the array
       if(i === 20){
-        this.genSales.push('Total: ' + this.totalGenSales + ' cookies');
+        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
       }
 
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    this.outputList.innerHTML = this.genSales.join('');
+    document.body.appendChild(this.outputList);
   }
 } // end object
 
@@ -220,6 +240,7 @@ var alki = {
   avgCookies: 4.6, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputList: document.createElement('ul'), //output list for the browser
 
   //function
   rdmCustomers: function() {
@@ -247,16 +268,18 @@ var alki = {
       this.totalGenSales += randomAverage;
 
       // input the projected sales for this hour into the array
-      this.genSales.push(time + ' ' + amPm + ': ' + randomAverage + ' cookies');
+      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
 
       // if this is the last iteration, add the total to the array
       if(i === 20){
-        this.genSales.push('Total: ' + this.totalGenSales + ' cookies');
+        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
       }
 
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    this.outputList.innerHTML = this.genSales.join('');
+    document.body.appendChild(this.outputList);
   }
 } // end object
 
