@@ -1,319 +1,71 @@
 'use strict';
 
-//set objects for each store:
+//set consturctor for creating each store:
+var Store = function(name, minCustomers, maxCustomers, avgCookies) {
+  this.name = name; // location of store
+  this.min = minCustomers; // minimum customers per day
+  this.max = maxCustomers; // maximum customers per day
+  this.avg = avgCookies; // averages amount of cookies bought per customer
+  this.salesData = []; // array to hold the generated hourly sales
+  this.dailySales = 0; // integer to hold the generated total daily sales
+}
 
-var firstAndPike = {
-  name: '1st and Pike',
-  minCustomers: 23, //minimum customers per hour
-  maxCustomers: 65, //maximum customers per hour
-  avgCookies: 6.3, //average cookies sold per customer per hour
-  totalGenSales: 0, // counter to keep track of total sales
-  genSales: [], //array for generated hours
-  outputTitle: document.createElement('p'), //output title above the list in browser
-  outputList: document.createElement('ul'), //output list for the browser
+// method to generate a random number of customers for an hour
+Store.prototype.rdmCustomers = function() {
+  return Math.random() * (this.max - this.min) + this.min;
+}
 
-  //function
-  rdmCustomers: function() {
-    return Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers;
-  }, //end method
+// method that will generate hourly and daily sales, while updating the array and integer defined in the constructor
+Store.prototype.generateSales = function() {
 
-  // generates random sales per hour and puts it in the genSales array
-  generateSales: function() {
-    for (var i = 6; i <= 20; i++) {
+  // starts by making the first item in the array the name of the store
+  this.salesData.push('<td>' + this.name + '</td>');
 
-      // sets time equal to a 12 hour clock
-      var time = i % 12;
-      if(time === 0) {
-        time = 12;
-      }
-      // decides if the time should be trailed by AM or PM
-      var amPm = 'AM';
-      if(i >= 12) {
-        amPm = 'PM';
-      }
+  for (var i = 6; i <= 20; i++) {
+    // generates the sales for the hour based on averages
+    var hourlyGeneratedSales = Math.floor(this.rdmCustomers() * this.avg);
 
-      var randomAverage = Math.floor(this.rdmCustomers() * this.avgCookies);
+    // adds the generated hourly sales to the running total of the daily sales
+    this.dailySales += hourlyGeneratedSales;
 
-      // adds to the running total of the hourly sales
-      this.totalGenSales += randomAverage;
+    // inputs the projected sales for this hour into the array of sales
+    this.salesData.push('<td>' + hourlyGeneratedSales + ' cookies</td>');
 
-      // input the projected sales for this hour into the array
-      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
+    // if this is the last iteration, adds the daily sales to the array
+    if(i === 20){
+      this.salesData.push('<td>' + this.dailySales + ' cookies</td>');
+    } // end if
+  } // end for
 
-      // if this is the last iteration, add the total to the array
-      if(i === 20){
-        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
-      }
+  // inputs the hourly sales and daily totals on a table in the document
 
-      //console.log('array:',this.genSales);
-      //console.log('total:',this.totalGenSales);
-    }
-    //output title
-    this.outputTitle.innerHTML = this.name;
-    document.body.appendChild(this.outputTitle);
-    //output list
-    this.outputList.innerHTML = this.genSales.join('');
-    document.body.appendChild(this.outputList);
+  //declares variables for collaborating with the DOM
+  var table = document.getElementById('table-content');
+  var newRow = document.createElement('tr');
+  var newData;
 
-  } // end for loop
-} // end object
+  // goes through the array and adds the values to a table row
+  for (var j = 0; j < this.salesData.length; j++) {
 
+    newData = document.createElement('td');
+    newData.innerHTML = this.salesData[j];
+    table.appendChild(newData);
+
+  } // end for
+  table.appendChild(newRow);
+
+} // end method
+
+// creating the stores with their data supplied by Pat
+var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
+var seaTacAirport = new Store('SeaTac Airport', 3, 23, 1.2);
+var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+var capitalHill = new Store('Capital Hill', 10, 38, 2.3);
+var alki = new Store('Alki', 2, 16, 4.6);
+
+// calling the functions
 firstAndPike.generateSales();
-
-console.log('1st and Pike array:',firstAndPike.genSales);
-console.log('1st and Pike total:',firstAndPike.totalGenSales);
-
-
-
-// var list = document.createElement('ul');
-// list.innerHTML = firstAndPike.genSales.join('';)
-// document.body.appendChild(list);
-
-var seaTacAirportList = document.createElement('ul');
-
-
-var seaTacAirport = {
-  name: 'SeaTac Airport',
-  minCustomers: 3, //minimum customers per hour
-  maxCustomers: 23, //maximum customers per hour
-  avgCookies: 1.2, //average cookies sold per customer per hour
-  totalGenSales: 0, // counter to keep track of total sales
-  genSales: [], //array for generated hours
-  outputTitle: document.createElement('p'), //output title above the list in browser
-  outputList: document.createElement('ul'), //output list for the browser
-
-  //function
-  rdmCustomers: function() {
-    return Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers;
-  }, //end method
-
-  // generates random sales per hour and puts it in the genSales array
-  generateSales: function() {
-    for (var i = 6; i <= 20; i++) {
-
-      // sets time equal to a 12 hour clock
-      var time = i % 12;
-      if(time === 0) {
-        time = 12;
-      }
-      // decides if the time should be trailed by AM or PM
-      var amPm = 'AM';
-      if(i >= 12) {
-        amPm = 'PM';
-      }
-
-      var randomAverage = Math.floor(this.rdmCustomers() * this.avgCookies);
-
-      // adds to the running total of the hourly sales
-      this.totalGenSales += randomAverage;
-
-      // input the projected sales for this hour into the array
-      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
-
-      // if this is the last iteration, add the total to the array
-      if(i === 20){
-        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
-      }
-
-      //console.log('array:',this.genSales);
-      //console.log('total:',this.totalGenSales);
-    }
-    //output title
-    this.outputTitle.innerHTML = this.name;
-    document.body.appendChild(this.outputTitle);
-    //output list
-    this.outputList.innerHTML = this.genSales.join('');
-    document.body.appendChild(this.outputList);
-  }
-} // end object
-
 seaTacAirport.generateSales();
-
-console.log('SeaTac Airport array:',seaTacAirport.genSales);
-console.log('Seatac Airport total:',seaTacAirport.totalGenSales);
-
-
-
-var seattleCenter = {
-  name: 'Seattle Center',
-  minCustomers: 11, //minimum customers per hour
-  maxCustomers: 38, //maximum customers per hour
-  avgCookies: 3.7, //average cookies sold per customer per hour
-  totalGenSales: 0, // counter to keep track of total sales
-  genSales: [], //array for generated hours
-  outputTitle: document.createElement('p'), //output title above the list in browser
-  outputList: document.createElement('ul'), //output list for the browser
-
-  //function
-  rdmCustomers: function() {
-    return Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers;
-  }, //end method
-
-  // generates random sales per hour and puts it in the genSales array
-  generateSales: function() {
-    for (var i = 6; i <= 20; i++) {
-
-      // sets time equal to a 12 hour clock
-      var time = i % 12;
-      if(time === 0) {
-        time = 12;
-      }
-      // decides if the time should be trailed by AM or PM
-      var amPm = 'AM';
-      if(i >= 12) {
-        amPm = 'PM';
-      }
-
-      var randomAverage = Math.floor(this.rdmCustomers() * this.avgCookies);
-
-      // adds to the running total of the hourly sales
-      this.totalGenSales += randomAverage;
-
-      // input the projected sales for this hour into the array
-      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
-
-      // if this is the last iteration, add the total to the array
-      if(i === 20){
-        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
-      }
-
-      //console.log('array:',this.genSales);
-      //console.log('total:',this.totalGenSales);
-    }
-    //output title
-    this.outputTitle.innerHTML = this.name;
-    document.body.appendChild(this.outputTitle);
-    //output list
-    this.outputList.innerHTML = this.genSales.join('');
-    document.body.appendChild(this.outputList);
-  }
-} // end object
-
 seattleCenter.generateSales();
-
-console.log('Seattle Center array:',seattleCenter.genSales);
-console.log('Seattle Center total:',seattleCenter.totalGenSales);
-
-
-
-var capitalHill = {
-  name: 'Capital Hill',
-  minCustomers: 10, //minimum customers per hour
-  maxCustomers: 38, //maximum customers per hour
-  avgCookies: 2.3, //average cookies sold per customer per hour
-  totalGenSales: 0, // counter to keep track of total sales
-  genSales: [], //array for generated hours
-  outputTitle: document.createElement('p'), //output title above the list in browser
-  outputList: document.createElement('ul'), //output list for the browser
-
-  //function
-  rdmCustomers: function() {
-    return Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers;
-  }, //end method
-
-  // generates random sales per hour and puts it in the genSales array
-  generateSales: function() {
-    for (var i = 6; i <= 20; i++) {
-
-      // sets time equal to a 12 hour clock
-      var time = i % 12;
-      if(time === 0) {
-        time = 12;
-      }
-      // decides if the time should be trailed by AM or PM
-      var amPm = 'AM';
-      if(i >= 12) {
-        amPm = 'PM';
-      }
-
-      var randomAverage = Math.floor(this.rdmCustomers() * this.avgCookies);
-
-      // adds to the running total of the hourly sales
-      this.totalGenSales += randomAverage;
-
-      // input the projected sales for this hour into the array
-      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
-
-      // if this is the last iteration, add the total to the array
-      if(i === 20){
-        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
-      }
-
-      //console.log('array:',this.genSales);
-      //console.log('total:',this.totalGenSales);
-    }
-    //output title
-    this.outputTitle.innerHTML = this.name;
-    document.body.appendChild(this.outputTitle);
-    //output list
-    this.outputList.innerHTML = this.genSales.join('');
-    document.body.appendChild(this.outputList);
-  }
-} // end object
-
 capitalHill.generateSales();
-
-console.log('Capital Hill array:',capitalHill.genSales);
-console.log('Capital Hill total:',capitalHill.totalGenSales);
-
-
-
-var alki = {
-  name: 'Alki',
-  minCustomers: 2, //minimum customers per hour
-  maxCustomers: 16, //maximum customers per hour
-  avgCookies: 4.6, //average cookies sold per customer per hour
-  totalGenSales: 0, // counter to keep track of total sales
-  genSales: [], //array for generated hours
-  outputTitle: document.createElement('p'), //output title above the list in browser
-  outputList: document.createElement('ul'), //output list for the browser
-
-  //function
-  rdmCustomers: function() {
-    return Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers;
-  }, //end method
-
-  // generates random sales per hour and puts it in the genSales array
-  generateSales: function() {
-    for (var i = 6; i <= 20; i++) {
-
-      // sets time equal to a 12 hour clock
-      var time = i % 12;
-      if(time === 0) {
-        time = 12;
-      }
-      // decides if the time should be trailed by AM or PM
-      var amPm = 'AM';
-      if(i >= 12) {
-        amPm = 'PM';
-      }
-
-      var randomAverage = Math.floor(this.rdmCustomers() * this.avgCookies);
-
-      // adds to the running total of the hourly sales
-      this.totalGenSales += randomAverage;
-
-      // input the projected sales for this hour into the array
-      this.genSales.push('<li>' + time + ' ' + amPm + ': ' + randomAverage + ' cookies</li>');
-
-      // if this is the last iteration, add the total to the array
-      if(i === 20){
-        this.genSales.push('<li>Total: ' + this.totalGenSales + ' cookies</li>');
-      }
-
-      //console.log('array:',this.genSales);
-      //console.log('total:',this.totalGenSales);
-    }
-    //output title
-    this.outputTitle.innerHTML = this.name;
-    document.body.appendChild(this.outputTitle);
-    //output list
-    this.outputList.innerHTML = this.genSales.join('');
-    document.body.appendChild(this.outputList);
-  }
-} // end object
-
 alki.generateSales();
-
-console.log('Alki array:', alki.genSales);
-console.log('Alki total:', alki.totalGenSales);
