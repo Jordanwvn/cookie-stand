@@ -108,20 +108,17 @@ var makeFooter = function(stores) {
   footer.appendChild(footerRow);
 } // end makeFooter function
 
-// creating the stores with their data supplied by Pat
-// var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
-// var seaTacAirport = new Store('SeaTac Airport', 3, 23, 1.2);
-// var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
-// var capitalHill = new Store('Capital Hill', 10, 38, 2.3);
-// var alki = new Store('Alki', 2, 16, 4.6);
+// combines the table functions to one print command
+var printTable = function() {
+  makeHeader();
+  for (var n = 0; n < storeArray.length; n++) {
+    storeArray[n].render();
+  };
+  makeFooter(storeArray);
+}
 
+// creating the stores with their data supplied by Pat
 var storeArray = [new Store('1st and Pike', 23, 65, 6.3), new Store('SeaTac Airport', 3, 23, 1.2), new Store('Seattle Center', 11, 38, 3.7), new Store('Capital Hill', 10, 38, 2.3), new Store('Alki', 2, 16, 4.6)];
 
-// calling the functions
-makeHeader();
-storeArray[0].render();
-storeArray[1].render();
-storeArray[2].render();
-storeArray[3].render();
-storeArray[4].render();
-makeFooter(storeArray);
+// calling the print function
+printTable();
