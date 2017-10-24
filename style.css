@@ -11,9 +11,20 @@ h1 {
   text-align: center;
 }
 
+img {
+  display: block;
+  margin: auto;
+  max-height: 50px;
+  padding: 20px;
+}
+
+main {
+  background-color: #d9b27d;
+}
+
 p {
   font-family: Georgia;
-  color: #7d786e;
+  color: #8e4525;
 }
 
 li {
