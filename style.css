@@ -11,6 +11,11 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-size: 25px;
+  padding-top : 25px;
+}
+
 img {
   display: block;
   margin: auto;
@@ -25,9 +30,12 @@ main {
 p {
   font-family: Georgia;
   color: #8e4525;
+  margin-top: 5px;
 }
 
 li {
   font-family: Helvetica;
   color: #262525;
+  margin-top: 5px;
+  margin-left: 10px;
 }
