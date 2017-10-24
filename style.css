@@ -39,3 +39,7 @@ li {
   margin-top: 5px;
   margin-left: 10px;
 }
+
+td {
+  text-align: center;
+}
