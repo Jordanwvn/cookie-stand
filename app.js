@@ -3,11 +3,13 @@
 //set objects for each store:
 
 var firstAndPike = {
+  name: '1st and Pike',
   minCustomers: 23, //minimum customers per hour
   maxCustomers: 65, //maximum customers per hour
   avgCookies: 6.3, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputTitle: document.createElement('p'), //output title above the list in browser
   outputList: document.createElement('ul'), //output list for the browser
 
   //function
@@ -46,8 +48,12 @@ var firstAndPike = {
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
-  this.outputList.innerHTML = this.genSales.join('');
-  document.body.appendChild(this.outputList);
+    //output title
+    this.outputTitle.innerHTML = this.name;
+    document.body.appendChild(this.outputTitle);
+    //output list
+    this.outputList.innerHTML = this.genSales.join('');
+    document.body.appendChild(this.outputList);
 
   } // end for loop
 } // end object
@@ -67,11 +73,13 @@ var seaTacAirportList = document.createElement('ul');
 
 
 var seaTacAirport = {
+  name: 'SeaTac Airport',
   minCustomers: 3, //minimum customers per hour
   maxCustomers: 23, //maximum customers per hour
   avgCookies: 1.2, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputTitle: document.createElement('p'), //output title above the list in browser
   outputList: document.createElement('ul'), //output list for the browser
 
   //function
@@ -110,6 +118,10 @@ var seaTacAirport = {
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    //output title
+    this.outputTitle.innerHTML = this.name;
+    document.body.appendChild(this.outputTitle);
+    //output list
     this.outputList.innerHTML = this.genSales.join('');
     document.body.appendChild(this.outputList);
   }
@@ -123,11 +135,13 @@ console.log('Seatac Airport total:',seaTacAirport.totalGenSales);
 
 
 var seattleCenter = {
+  name: 'Seattle Center',
   minCustomers: 11, //minimum customers per hour
   maxCustomers: 38, //maximum customers per hour
   avgCookies: 3.7, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputTitle: document.createElement('p'), //output title above the list in browser
   outputList: document.createElement('ul'), //output list for the browser
 
   //function
@@ -166,6 +180,10 @@ var seattleCenter = {
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    //output title
+    this.outputTitle.innerHTML = this.name;
+    document.body.appendChild(this.outputTitle);
+    //output list
     this.outputList.innerHTML = this.genSales.join('');
     document.body.appendChild(this.outputList);
   }
@@ -179,11 +197,13 @@ console.log('Seattle Center total:',seattleCenter.totalGenSales);
 
 
 var capitalHill = {
+  name: 'Capital Hill',
   minCustomers: 10, //minimum customers per hour
   maxCustomers: 38, //maximum customers per hour
   avgCookies: 2.3, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputTitle: document.createElement('p'), //output title above the list in browser
   outputList: document.createElement('ul'), //output list for the browser
 
   //function
@@ -222,6 +242,10 @@ var capitalHill = {
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    //output title
+    this.outputTitle.innerHTML = this.name;
+    document.body.appendChild(this.outputTitle);
+    //output list
     this.outputList.innerHTML = this.genSales.join('');
     document.body.appendChild(this.outputList);
   }
@@ -235,11 +259,13 @@ console.log('Capital Hill total:',capitalHill.totalGenSales);
 
 
 var alki = {
+  name: 'Alki',
   minCustomers: 2, //minimum customers per hour
   maxCustomers: 16, //maximum customers per hour
   avgCookies: 4.6, //average cookies sold per customer per hour
   totalGenSales: 0, // counter to keep track of total sales
   genSales: [], //array for generated hours
+  outputTitle: document.createElement('p'), //output title above the list in browser
   outputList: document.createElement('ul'), //output list for the browser
 
   //function
@@ -278,6 +304,10 @@ var alki = {
       //console.log('array:',this.genSales);
       //console.log('total:',this.totalGenSales);
     }
+    //output title
+    this.outputTitle.innerHTML = this.name;
+    document.body.appendChild(this.outputTitle);
+    //output list
     this.outputList.innerHTML = this.genSales.join('');
     document.body.appendChild(this.outputList);
   }
