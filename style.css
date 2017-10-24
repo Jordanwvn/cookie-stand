@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline');
+
+header {
+  background-color: #262525;
+}
+
+h1 {
+  font-family: "Fascinate Inline";
+  font-size: 50px;
+  color: #b66636;
+  text-align: center;
+}
+
+p {
+  font-family: Georgia;
+  color: #7d786e;
+}
+
+li {
+  font-family: Helvetica;
+  color: #262525;
+}
