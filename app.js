@@ -1,18 +1,23 @@
 'use strict';
 
 
-// variable declarations
+// VARIABLE DECLARATIONS
 
 
 var storeHours = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM']; // array of business hours
 var storeArray = []; // array to hold all store objects
 
+
+// DOM CALLS
+
+
 var form = document.getElementById('store-form'); // gets the element of from to access the DOM
 var table = document.getElementById('table-body'); // find the body of the table
 var header = document.getElementById('table-header'); // find the header of the table
+var footer = document.getElementById('footer-row');
 
 
-// constructor
+// CONSTRUCTOR
 
 
 // consturctor for creating each store:
@@ -26,7 +31,7 @@ var Store = function(name, minCustomers, maxCustomers, avgCookies) {
 } // end Store constructor
 
 
-// prototype methods
+// PROTOTYPE METHODS
 
 
 // method: generate random number of customers for an hour
@@ -34,18 +39,49 @@ Store.prototype.rdmCustomers = function() {
   return Math.random() * (this.max - this.min) + this.min; // return random amount between min and max
 } // end rdmCustomers method
 
+
 // method: generate and store both hourly and daily sales
 Store.prototype.generateSales = function() {
   for (var i = 0; i < storeHours.length; i++) { // for every hour of sales...
     var hourlyGeneratedSales = Math.floor(this.rdmCustomers() * this.avg); // generate hourly sales
-    console.log('sales:', hourlyGeneratedSales);
     this.salesData.push(hourlyGeneratedSales); // add hourly sales to the array of sales
     this.dailySales += hourlyGeneratedSales; // add hourly sales to daily sales
   } // end for
 } // end generateSales method
 
 
-// helper functions
+// HELPER FUNCTIONS
+
+
+// function: for each hour, add a table cell with the sum of all store sales during that hour
+var makeHourlySums = function() {
+  var hourlySum = ''; // reset the sum
+  for (var hour = 0; hour < storeHours.length; hour++) { // for every hour...
+    var runningTotal = 0; // set a running total to zero
+    for (var store = 0; store < storeArray.length; store++) { // then, for every store...
+      runningTotal += storeArray[store].salesData[hour]; // add to the running total
+    } // end store loop
+    hourlySum += '<td>' + runningTotal + '</td>'; // fill the hourly sum with the final running total
+  }  // end hour loop
+  return hourlySum; // return the hourly sum
+} // end sumSales function
+
+
+// function: generate a table cell with the current sum of daily sales of all stores
+var makeDailySum = function() {
+  var dailySum = 0; // set the counter to 0
+  for (var o = 0; o < storeArray.length; o++) { // for every store location...
+    dailySum += storeArray[o].dailySales; // add the daily sales to the counter
+  } // end for
+  return '<td>' + dailySum + '</td>'; // return the counter
+} // end sumSums function
+
+
+// function: make a footer for the table
+var makeFooter = function () {
+  footer.innerHTML = ''; // clear the previous footer
+  footer.innerHTML = '<th>Totals</th>' + makeHourlySums() + makeDailySum(); // fill the footer with generated totals
+} // end makeFooter function
 
 
 // function: fill a cell with the input value
@@ -54,6 +90,7 @@ var createCell = function (input, parent, type){
   cell.innerHTML = input; // fill that cell with the input argument
   parent.appendChild(cell); // append the cell
 } // end createCell function
+
 
 // function: create a header using store hours
 var makeHeader = function() {
@@ -66,7 +103,8 @@ var makeHeader = function() {
   header.appendChild(headerRow); // append the row
 } // end makeHeader function
 
-// method: output store data into a table
+
+// function: output store data into a table
 var render = function(store) {
   var tableRow = document.createElement('tr'); // create a new row
   createCell(store.name, table, 'td'); // start the row with the name of the store
@@ -76,6 +114,10 @@ var render = function(store) {
   createCell(store.dailySales, table, 'td'); // end the row with the total sum of those sales
   table.appendChild(tableRow); // append the row those cells were in
 } // end render method
+
+
+// EVENT HANDLER
+
 
 // function: generate the table upon form submission
 function formTable(event) {
@@ -90,10 +132,12 @@ function formTable(event) {
   storeArray.push(new Store(name, min, max, avg)); // generate a store object from those values
   storeArray[storeArray.length-1].generateSales(); // generate the sales of that store
   render(storeArray[storeArray.length-1]); // output those sales to a table row
+  makeFooter(); // output the sums of all sales in a row of totals
   form.reset(); // reset the form so the user can input another location if desired
 } // end formTable function
 
 
-// event listener
+// EVENT LISTENER
+
 
 form.addEventListener('submit', formTable); // if the form is submitted, run formTable
