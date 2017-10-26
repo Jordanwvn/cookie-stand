@@ -1,13 +1,22 @@
 'use strict';
 
+
+// variable declarations
+
+
 var storeHours = ['6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM']; // array of business hours
 var storeArray = []; // array to hold all store objects
+
 var form = document.getElementById('store-form'); // gets the element of from to access the DOM
 var table = document.getElementById('table-body'); // find the body of the table
+var header = document.getElementById('table-header'); // find the header of the table
 
 
-//consturctor for creating each store:
-var Store = function(name, minCustomers, maxCustomers, avgCookies) { // constructor: make stores
+// constructor
+
+
+// consturctor for creating each store:
+var Store = function(name, minCustomers, maxCustomers, avgCookies) {
   this.name = name; // location of store
   this.min = minCustomers; // minimum customers per day
   this.max = maxCustomers; // maximum customers per day
@@ -17,12 +26,16 @@ var Store = function(name, minCustomers, maxCustomers, avgCookies) { // construc
 } // end Store constructor
 
 
-Store.prototype.rdmCustomers = function() { // method: generate random number of customers for an hour
+// prototype methods
+
+
+// method: generate random number of customers for an hour
+Store.prototype.rdmCustomers = function() {
   return Math.random() * (this.max - this.min) + this.min; // return random amount between min and max
 } // end rdmCustomers method
 
-
-Store.prototype.generateSales = function() { // method: generate and store both hourly and daily sales
+// method: generate and store both hourly and daily sales
+Store.prototype.generateSales = function() {
   for (var i = 0; i < storeHours.length; i++) { // for every hour of sales...
     var hourlyGeneratedSales = Math.floor(this.rdmCustomers() * this.avg); // generate hourly sales
     console.log('sales:', hourlyGeneratedSales);
@@ -31,62 +44,56 @@ Store.prototype.generateSales = function() { // method: generate and store both 
   } // end for
 } // end generateSales method
 
-var createCell = function (input){ // function: fill a cell with the input value
-  var cell = document.createElement('td'); // create a new cell
+
+// helper functions
+
+
+// function: fill a cell with the input value
+var createCell = function (input, parent, type){
+  var cell = document.createElement(type); // create a new cell
   cell.innerHTML = input; // fill that cell with the input argument
-  table.appendChild(cell); // append the cell
+  parent.appendChild(cell); // append the cell
 } // end createCell function
 
-Store.prototype.render = function() { // method: output store data into a table
-  var tableRow = document.createElement('tr'); // create a new row
-  createCell(this.name); // start the row with the name of the store
-  for (var j = 0; j < this.salesData.length; j++) { // for every generated hourly sales...
-    createCell(this.salesData[j]); // create a cell filled with the appropriate hourly sales
-  } // end for loop
-  createCell(this.dailySales); // end the row with the total sum of those sales
-  table.appendChild(tableRow); // append the row those cells were in
-} // end render method
-
-
-var makeHeader = function() { // function: create a header using store hours
-  var header = document.getElementById('table-header'); // find the header of the table
+// function: create a header using store hours
+var makeHeader = function() {
   var headerRow = document.createElement('tr'); // create a new row
-  var headerData; // declare a variable to be used to fill the cells in this row
-
-  headerData = document.createElement('th'); // create a new cell
-  headerData.innerHTML = ''; // leave it empty, so the data aligns
-  header.appendChild(headerData); // append the cell
-
+  createCell('', header, 'th'); // start the row with a blank cell
   for (var k = 0; k < storeHours.length; k++) { // for every business hour...
-    headerData = document.createElement('th'); // create a new cell
-    headerData.innerHTML = storeHours[k]; // fill the cell with the corresponding business hour
-    header.appendChild(headerData); // append the cell
+    createCell(storeHours[k], header, 'th'); // create a cell with store hours
   } // end for loop
-
-  headerData = document.createElement('th'); // create a new cell
-  headerData.innerHTML = 'Daily Location Total'; // fill the cell with "daily location total"
-  header.appendChild(headerData); // append the cell
-
+  createCell('Daily Location Total', header, 'th'); // end the row with 'daily location total'
   header.appendChild(headerRow); // append the row
 } // end makeHeader function
 
+// method: output store data into a table
+var render = function(store) {
+  var tableRow = document.createElement('tr'); // create a new row
+  createCell(store.name, table, 'td'); // start the row with the name of the store
+  for (var j = 0; j < store.salesData.length; j++) { // for every generated hourly sales...
+    createCell(store.salesData[j], table, 'td'); // create a cell filled with the appropriate hourly sales
+  } // end for loop
+  createCell(store.dailySales, table, 'td'); // end the row with the total sum of those sales
+  table.appendChild(tableRow); // append the row those cells were in
+} // end render method
 
-function formTable(event) { // function: generate the table upon form submission
+// function: generate the table upon form submission
+function formTable(event) {
   event.preventDefault(); // do not refresh the page upon form submission
   if (storeArray.length === 0){ // if this is the first time the table is generated...
     makeHeader(); // make the header
-  } // end if
-
+} // end if
   var name = event.target.store.value; // get the store name from the form
-  var minCustomers = parseInt(event.target.min.value); // get the minimum customers from the form
-  var maxCustomers = parseInt(event.target.max.value); // get the maximum customers from the form
-  var avgCookieSales = event.target.avg.value; // get the average sales per customer from the form
-
-  storeArray.push(new Store(name, minCustomers, maxCustomers, avgCookieSales)); // generate a store object
+  var min = parseInt(event.target.min.value); // get the minimum customers from the form
+  var max = parseInt(event.target.max.value); // get the maximum customers from the form
+  var avg = event.target.avg.value; // get the average sales per customer from the form
+  storeArray.push(new Store(name, min, max, avg)); // generate a store object from those values
   storeArray[storeArray.length-1].generateSales(); // generate the sales of that store
-  storeArray[storeArray.length-1].render(); // output those sales to a table row
+  render(storeArray[storeArray.length-1]); // output those sales to a table row
   form.reset(); // reset the form so the user can input another location if desired
 } // end formTable function
 
+
+// event listener
 
 form.addEventListener('submit', formTable); // if the form is submitted, run formTable
