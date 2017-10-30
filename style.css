@@ -2,7 +2,9 @@
 
 header {
   background-color: #262525;
+  padding-bottom: 100px;
 }
+
 
 h1 {
   font-family: "Fascinate Inline";
@@ -16,7 +18,7 @@ h2 {
   padding-top : 25px;
 }
 
-img {
+header img {
   display: block;
   margin: auto;
   max-height: 50px;
@@ -24,7 +26,7 @@ img {
 }
 
 main {
-  background-color: #d9b27d;
+  /*background-color: #d9b27d;*/
 }
 
 p {
@@ -33,9 +35,113 @@ p {
   margin-top: 5px;
 }
 
+header li {
+  float: left;
+  margin-left: 50px;
+  color: #b66636;
+}
+main span{
+  clear: both;
+}
+
+main div {
+  float: left;
+}
+
+main div img {
+  height: 100px;
+}
+
+footer img {
+  float: right;
+  height: 100px;
+  margin-right: 25px;
+}
+
+footer p {
+  text-align: right;
+}
+
+footer li {
+  text-align: center;
+  padding-top: 20px;
+}
+
+#left_salmon {
+  float: left;
+}
+
+#right_salmon {
+  float: right;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+
 li {
   font-family: Helvetica;
-  color: #262525;
+  color: #000;
   margin-top: 5px;
   margin-left: 10px;
+}
+
+main img {
+  max-height: inherit;
+  float: left;
+  margin-left: 200px;
+}
+
+td {
+  text-align: center;
+}
+
+footer {
+  clear: both;
+}
+
+form {
+  padding: 10px;
+}
+
+form input {
+  padding: 5px;
+  margin: 10px;
+  border-color: #b66636;
+  text-align: center;
+}
+
+form .numbers input {
+  width: 20px;
+}
+
+form label {
+  padding: 10px;
+  font-family: Helvetica;
+  color: #b66636;
+}
+
+form button {
+  background-color: #fff;
+  color: #b66636;
+  padding: 10px;
+}
+
+table {
+  margin: 5px;
+  font-family: Georgia;
+  color: #b66636;
+}
+
+table th {
+  padding-left: 10px;
+  font-weight: bold;
+  color: #262525;
+}
+
+table td {
+  padding-top : 10px;
 }
