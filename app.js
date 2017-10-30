@@ -14,7 +14,7 @@ var storeArray = []; // array to hold all store objects
 var form = document.getElementById('store-form'); // gets the element of from to access the DOM
 var table = document.getElementById('table-body'); // find the body of the table
 var header = document.getElementById('table-header'); // find the header of the table
-var footer = document.getElementById('footer-row');
+var footer = document.getElementById('footer-row'); // the footer of the table
 
 
 // CONSTRUCTOR

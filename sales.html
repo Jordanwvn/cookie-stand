@@ -2,9 +2,8 @@
 <html>
   <head>
     <!-- meta data -->
-    <!-- reset sheet
     <link rel="stylesheet" href="reset.css">
-    -->
+
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -14,15 +13,15 @@
         <input type="text" name="store" placeholder="enter store name" required>
       </fieldset>
 
-      <fieldset>
+      <fieldset class="numbers">
         <label for="min">minimum customers:</label>
-        <input type="text" name="min" required>
+        <input type="text" name="min" placeholder="#" required>
 
         <label for="max">maximum customers:</label>
-        <input type="text" name="max" required>
+        <input type="text" name="max" placeholder="#" required>
 
         <label for="avg">average cookies bought per customer:</label>
-        <input type="text" name="avg" required>
+        <input type="text" name="avg" placeholder="#" required>
       </fieldset>
 
       <button id="submit_button" type="submit">add store data</button>

@@ -102,3 +102,46 @@ td {
 footer {
   clear: both;
 }
+
+form {
+  padding: 10px;
+}
+
+form input {
+  padding: 5px;
+  margin: 10px;
+  border-color: #b66636;
+  text-align: center;
+}
+
+form .numbers input {
+  width: 20px;
+}
+
+form label {
+  padding: 10px;
+  font-family: Helvetica;
+  color: #b66636;
+}
+
+form button {
+  background-color: #fff;
+  color: #b66636;
+  padding: 10px;
+}
+
+table {
+  margin: 5px;
+  font-family: Georgia;
+  color: #b66636;
+}
+
+table th {
+  padding-left: 10px;
+  font-weight: bold;
+  color: #262525;
+}
+
+table td {
+  padding-top : 10px;
+}
